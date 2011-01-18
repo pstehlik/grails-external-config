@@ -1,10 +1,10 @@
 //move old Config.groovy and DataSource.groovy files and replace with external configuration
+target('default': "Create external-aware grails-app configuration") {
+    externalizeConfig()
+}
 
-includeTargets << grailsScript("_PluginDependencies")
-
-target(externalizeConfig: 'Create external-aware grails-app configuration') {
-  depends(parseArguments)
-
+target(externalizeConfig: 'implementation as described above') {
+  
   def configGroovy = new File("${basedir}/grails-app/conf/Config.groovy")
   def dataSourceGroovy = new File("${basedir}/grails-app/conf/DataSource.groovy")
   [configGroovy, dataSourceGroovy].each{File oldConfigFile ->
@@ -59,5 +59,3 @@ grails.config.locations.each {
   dataSourceGroovy.write('//check external configuration as described in Config.groovy')
 
 }
-
-install()
